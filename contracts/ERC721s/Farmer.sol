@@ -51,6 +51,10 @@ contract Farmer is
         _tokensLeft = 690;
     }
 
+    function getNextTokenId() external view returns (uint256) {
+        return _nextTokenId;
+    }
+
     function setMinter(address newMinter) external onlyRole(DEFAULT_ADMIN_ROLE) {
         if (newMinter == address(0)) revert ZeroAddress();
         _grantRole(MINTER_ROLE, newMinter);

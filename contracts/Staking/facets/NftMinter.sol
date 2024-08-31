@@ -31,7 +31,7 @@ contract NftMinter is QueryResponse {
             address[] memory validAddresses = new address[](1);
             bytes4[] memory validFunctionSignatures = new bytes4[](1);
             validAddresses[0] = address(this);
-            validFunctionSignatures[0] = bytes4(keccak256(bytes("safeMint(address to, uint256 _tokenId)")));
+            validFunctionSignatures[0] = bytes4(keccak256(bytes("getNextTokenId()")));
 
             validateMultipleEthCallData(eqr.result, validAddresses, validFunctionSignatures);
 
@@ -76,7 +76,7 @@ contract NftMinter is QueryResponse {
             address[] memory validAddresses = new address[](1);
             bytes4[] memory validFunctionSignatures = new bytes4[](1);
             validAddresses[0] = address(this);
-            validFunctionSignatures[0] = bytes4(keccak256(bytes("safeMint(address to, uint256 _tokenId)")));
+            validFunctionSignatures[0] = bytes4(keccak256(bytes("getNextTokenId()")));
 
             validateMultipleEthCallData(eqr.result, validAddresses, validFunctionSignatures);
 
