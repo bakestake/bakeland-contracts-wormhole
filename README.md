@@ -62,7 +62,7 @@ User can acquire these roles by getting a FARMER or NARC NFT. Users can do follo
     - So the functions will always compute with latest global data and not outdated global data
     - here is a flowchart link to understand it better - miro[https://miro.com/app/board/uXjVK6vTceA=/?share_link_id=726924655273]
 
-  2. **Cross chain PvP game settlement **
+  2. **Cross chain PvP game settlement**
     - Cross chain PvP games are one of the most amazing part of bakeland. where users from two different chains fight against each other in a mini-game by       staking $BUDS.
     - Winner of the game takes all
     - As this are cross chain we use CCQ to query submission of funds on each chain to start game and also finalize game on both chains.
