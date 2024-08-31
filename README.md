@@ -3,7 +3,7 @@
 
 # Bakeland - Unifying chains by putting them at wars
   <p align="center" width="100%">
-    <img src="https://github.com/user-attachments/assets/9c172c13-c41f-4a81-8566-55e07a8ea359" width=400 height=400 align=center>
+    <img src="https://github.com/user-attachments/assets/9c172c13-c41f-4a81-8566-55e07a8ea359" width=200 height=200 align=center>
   </p>
 
 Bakeland is game where you can play against your friends across multiple chains. Bakeland is catering two major type of crypto native audiance
