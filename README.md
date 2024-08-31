@@ -1,6 +1,11 @@
-# Wormhole Hackathon by Encode
-  
-## Bakeland - Unifying chains by putting them at wars
+# Wormhole Hackathon Submission
+  ![image](https://github.com/user-attachments/assets/d9cd7a7c-e54c-40b3-ac68-0ed22613ee4a)
+
+# Bakeland - Unifying chains by putting them at wars
+  <p align="center" width="100%">
+    <img src="https://github.com/user-attachments/assets/9c172c13-c41f-4a81-8566-55e07a8ea359" width=400 height=400 align=center>
+  </p>
+
 Bakeland is game where you can play against your friends across multiple chains. Bakeland is catering two major type of crypto native audiance
   - **Chain Hoppers** - people who hop around the chains for better incentives
   - **Chain loyalist** - People who are are loyal to one chain
