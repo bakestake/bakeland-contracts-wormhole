@@ -40,15 +40,15 @@ User can acquire these roles by getting a FARMER or NARC NFT. Users can do follo
   3. Secure
 
 ## Project structure
-  ├── contracts                 # Smart contracts
-  ├── scripts                   # scripts for utility functions
-  ├── tasks                     # tasks for invoking functions
-  ├── wormholeCcq               # A service responsible for Cross chain query 
-  ├── LICENSE
-  ├── hardhat.config.ts  
-  ├── package.json
-  ├── README.md
-  └── tsconfig.json
+    ├── contracts                 # Smart contracts
+    ├── scripts                   # scripts for utility functions
+    ├── tasks                     # tasks for invoking functions
+    ├── wormholeCcq               # A service responsible for Cross chain query 
+    ├── LICENSE
+    ├── hardhat.config.ts  
+    ├── package.json
+    ├── README.md
+    └── tsconfig.json
 
 ## Usage Explaination
 
