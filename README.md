@@ -121,10 +121,105 @@ Here is a diagram to understand it better - [https://miro.com/app/board/uXjVK6vT
   - Verify asset ownership across multiple chains, saving users time and money otherwise spent on bridging assets.
   - Reward user behavior across multiple networks, even if the network is not actively supported for in-game transactions
   - Create mini-games around live multi-chain data, such as on-chain RTS games. 
-     
-  
+
+## Code snippets of usage
+**Query response submission function**
+```
+    function updateGlobalBudsState(bytes memory response, IWormhole.Signature[] memory signatures) internal {
+        uint256 globalCount;
+        ParsedQueryResponse memory r = parseAndVerifyQueryResponse(response, signatures);
+        uint256 numResponses = r.responses.length;
+        if (numResponses != LibGlobalVarState.intStore().noOfChains) {
+            revert ("Unmatched length 1");
+        }
+
+        for (uint256 i = 0; i < numResponses;) {
+
+            EthCallQueryResponse memory eqr = parseEthCallQueryResponse(r.responses[i]);
+
+            // Validate that update is not stale
+            validateBlockTime(eqr.blockTime, block.timestamp - 300);
+
+            if (eqr.result.length != 1) {
+                revert ("Unmatched length 2");
+            }
+
+            // Validate addresses and function signatures
+            address[] memory validAddresses = new address[](1);
+            bytes4[] memory validFunctionSignatures = new bytes4[](1);
+            validAddresses[0] = address(this);
+            validFunctionSignatures[0] = LibGlobalVarState.bytesStore().GetLocalSelector;
+
+            validateMultipleEthCallData(eqr.result, validAddresses, validFunctionSignatures);
+
+            require(eqr.result[0].result.length == 32, "result is not a uint256");
+
+            globalCount += abi.decode(eqr.result[0].result, (uint256));
+
+            unchecked {
+                ++i;
+            }
+        }
+
+        LibGlobalVarState.intStore().globalStakedBudsCount = globalCount;
+    }
+```
+
+**Above function is utilized to update global reference of liquidty.** That results in latest global liquidty reference of $BUDS used for on-chain computation. For example, In case of users unstaking and claiming their reward tokens the APR percentage should be according to latest global state reference. 
+```
+    function claimAndUnstake(bytes memory response, IWormhole.Signature[] memory signatures) public {
+        uint256 len = LibGlobalVarState.mappingStore().stakeRecord[msg.sender].length;
+        if (len == 0) revert LibGlobalVarState.NoStakeFound();
+
+        updateGlobalBudsState(response, signatures);
+
+        uint256 rewards = 0;
+        uint256 staked = 0;
+        uint256 tokenIdToSend = LibGlobalVarState.mappingStore().stakedFarmer[msg.sender];
+
+        for (uint i = 0; i < len; i++) {
+            LibGlobalVarState.Stake memory stk = LibGlobalVarState.mappingStore().stakeRecord[msg.sender][i];
+            rewards += calculateStakingReward(stk.budsAmount, stk.timeStamp);
+            staked += stk.budsAmount;
+            stk.timeStamp = block.timestamp;
+        }
+        if (LibGlobalVarState.interfaceStore()._stBuds.balanceOf(msg.sender) < staked) revert("Low St Buds");
+
+        LibGlobalVarState.intStore().localStakedBudsCount -= staked;
+        LibGlobalVarState.intStore().globalStakedBudsCount -= staked;
+
+        delete LibGlobalVarState.mappingStore().stakeRecord[msg.sender];
+
+        if (tokenIdToSend != 0) {
+            LibGlobalVarState.mappingStore().stakedFarmer[msg.sender] = 0;
+            LibGlobalVarState.interfaceStore()._farmerToken.safeTransferFrom(address(this), msg.sender, tokenIdToSend);
+        }
+
+        bool res = LibGlobalVarState.interfaceStore()._budsToken.transfer(msg.sender, staked);
+        LibGlobalVarState.interfaceStore()._stBuds.burnFrom(msg.sender, staked);
+        require(res);
+
+        LibGlobalVarState.interfaceStore()._budsVault.sendBudsTo(msg.sender, rewards);
+
+        emit LibGlobalVarState.rewardsClaimed(msg.sender, rewards);
+        emit LibGlobalVarState.UnStaked(
+            msg.sender,
+            tokenIdToSend,
+            staked,
+            block.timestamp,
+            LibGlobalVarState.intStore().localStakedBudsCount,
+            LibGlobalVarState.getCurrentApr()
+        );
+    }
+```
+
+**On Off-chain side we use a service to fetch the data and signature receievd from CCQ.**  
+  <p align="center" width="100%">
+    <img src="https://github.com/user-attachments/assets/25832432-4d1e-4cb1-97e9-3c6bab625484" width=1000 align=center>
+  </p>
+
+
 ## Links to services and deployed contract addresses
   service for getting data and sigs form CCQ -  https://24rya9omd6.execute-api.eu-west-3.amazonaws.com/dev/
-  ![image](https://github.com/user-attachments/assets/25832432-4d1e-4cb1-97e9-3c6bab625484)
 
   Proxy(diamond) contract on all chains - 0xB2A338Fb022365Aa40a2c7ADA3Bbf1Ae001D6dbe 
