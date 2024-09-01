@@ -84,10 +84,6 @@ Secondly, blockchain interoperability has been limited to infra and DeFi. But it
     ├── scripts                   # scripts for utility functions
     ├── tasks                     # tasks for invoking functions
     ├── wormholeCcq               # service responsible for cross-chain query 
-        └── handlers              # contains all handlers performing **CCQ** for specfic purpose
-        └── handler.js            
-        └── index.js              # file configuring express app
-        └── server.js             # entrypoint for running server
     ├── LICENSE
     ├── hardhat.config.ts  
     ├── package.json
@@ -95,25 +91,24 @@ Secondly, blockchain interoperability has been limited to infra and DeFi. But it
     └── tsconfig.json
 
 ## Usage Explanation
-1. Unified global liquidity reference of $BUDS across the chains
-  - Many function in our smart contracts need latest global liquidity data of $BUDS for accurate computation
-  - In such functions, we have used wormhole CCQ to get local liquidity data from all chains and aggregate it to get global liquidity reference on required chain.
-  - So the functions will always compute with latest global data and not outdated global data
-  - here is a flowchart link to understand it better - miro[https://miro.com/app/board/uXjVK6vTceA=/?share_link_id=726924655273]
+1. **Global liquidity reference of $BUDS across 5 networks**
+  - Several core functions in our smart contracts require 'global staked $BUDS' for computing fees and rewards.
+  - For this, we've used Wormhole CCQ to get 'local staked $BUDS' from all chains and aggregate it to get global liquidity reference on the required network.
+  - This ensures our smart contracts compute with the latest global data with the lowest possible latency.
+  
+Here is a diagram to understand it better - [https://miro.com/app/board/uXjVK6vTceA=/?share_link_id=726924655273]
 
-2. **Cross chain PvP game settlement**
- - Cross chain PvP games are one of the most amazing part of bakeland. where users from two different chains fight against each other in a mini-game by staking $BUDS
- - Winner of the game takes all.
- - As this are cross chain we use CCQ to query submission of funds on each chain to start game and also finalize game on both chains.
- - here is a flowchart link to understand it better - miro[https://miro.com/app/board/uXjVK6vTceA=/?share_link_id=726924655273]
+2. **Cross-Chain PvP Game Escrow**
+ - Cross-Chain PvP games are among the most exciting features of Bakeland. This involves a range of games where users from two different chains fight against each other, wagering $BUDS on the outcome.
+ The winner of the game takes the sum of wagers.
+ - For this, we use CCQ to query the deposit of funds on each chain to start the game and also finalize the game on both chains using atomics swaps.
+   
+Here is a diagram to understand it better - [https://miro.com/app/board/uXjVK6vTceA=/?share_link_id=726924655273]
     
-3. **Unified token ID of assets across the chains**
-  - Token Ids of cross chain composible assets can collide if a sequential minting took place on each chain
-  - Imagine token ID minted on Avax and also minted on bsc
-  - If user bridges this asset over to bsc from avax it will be failed as token id 1 is already minted on bsc
-  - So, We use wormhole's Cross chain queries to minted tokens across the chains without collision of token Ids.
-  - We query latest token Id from all chains and submit this query response to chain where token is being minted.
-  - Minter contract decodes the submitted response and checks for highest tokenID which is incremented and a latest token id is minted on chain.
+3. **Composability**
+  - Verify asset ownership across multiple chains, saving users time and money otherwise spent on bridging assets.
+  - Reward user behavior across multiple networks, even if the network is not actively supported for in-game transactions
+  - Create mini-games around live multi-chain data, such as on-chain RTS games. 
      
   
 ## Links to services and deployed contract addresses
