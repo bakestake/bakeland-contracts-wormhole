@@ -98,19 +98,19 @@ Secondly, blockchain interoperability has been limited to infra and DeFi. But it
   - So the functions will always compute with latest global data and not outdated global data
   - here is a flowchart link to understand it better - miro[https://miro.com/app/board/uXjVK6vTceA=/?share_link_id=726924655273]
 
-  3. **Cross chain PvP game settlement**
-    - Cross chain PvP games are one of the most amazing part of bakeland. where users from two different chains fight against each other in a mini-game by       staking $BUDS.
-    - Winner of the game takes all
-    - As this are cross chain we use CCQ to query submission of funds on each chain to start game and also finalize game on both chains.
-    - here is a flowchart link to understand it better - miro[https://miro.com/app/board/uXjVK6vTceA=/?share_link_id=726924655273]
+2. **Cross chain PvP game settlement**
+ - Cross chain PvP games are one of the most amazing part of bakeland. where users from two different chains fight against each other in a mini-game by staking $BUDS
+ - Winner of the game takes all.
+ - As this are cross chain we use CCQ to query submission of funds on each chain to start game and also finalize game on both chains.
+ - here is a flowchart link to understand it better - miro[https://miro.com/app/board/uXjVK6vTceA=/?share_link_id=726924655273]
     
-  4. **Unified token ID of assets across the chains**
-    - Token Ids of cross chain composible assets can collide if a sequential minting took place on each chain
-    - Imagine token ID minted on Avax and also minted on bsc
-    - If user bridges this asset over to bsc from avax it will be failed as token id 1 is already minted on bsc
-    - So, We use wormhole's Cross chain queries to minted tokens across the chains without collision of token Ids.
-    - We query latest token Id from all chains and submit this query response to chain where token is being minted.
-    - Minter contract decodes the submitted response and checks for highest tokenID which is incremented and a latest token id is minted on chain.
+3. **Unified token ID of assets across the chains**
+  - Token Ids of cross chain composible assets can collide if a sequential minting took place on each chain
+  - Imagine token ID minted on Avax and also minted on bsc
+  - If user bridges this asset over to bsc from avax it will be failed as token id 1 is already minted on bsc
+  - So, We use wormhole's Cross chain queries to minted tokens across the chains without collision of token Ids.
+  - We query latest token Id from all chains and submit this query response to chain where token is being minted.
+  - Minter contract decodes the submitted response and checks for highest tokenID which is incremented and a latest token id is minted on chain.
      
   
 ## Links to services and deployed contract addresses
