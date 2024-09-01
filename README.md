@@ -67,18 +67,17 @@ Secondly, blockchain interoperability has been limited to infra and DeFi. But it
 
   
 ## Highlighting Use of Wormhole
-  1. **Unified Liquidity** across chains using **wormhole CCQ**
-  2. **Real-time data attestation** across chains using **Wormhole CCQ**
-  3. Unparallelled composability of game assets
-  4. Liquidity Balancing Mechanism
+  1. **Liquidity Balancing Mechanism** across chains using **Wormhole CCQ**
+  2. **Real-time access to global data** enables Saturation Factor (SF)
+  3. **Unparallelled composability of game assets** - verify ownership of game assets instantly
   
 
   ![image](https://github.com/user-attachments/assets/ca488a8d-f565-472d-b7bc-2d3e6fb2ffa6)
 
 ## Why Wormhole
-  1. Speed
-  2. Easy to implement
-  3. Secure
+  1. Saves users time and money (as opposed to cross-chain messaging for high-frequency/low-value data)
+  2. Ease of implementation
+  3. Security
 
 ## Project structure
     ├── contracts                 # smart contracts
