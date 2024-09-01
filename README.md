@@ -80,15 +80,27 @@ Secondly, blockchain interoperability has been limited to infra and DeFi. But it
   3. Security
 
 ## Project structure
-    ├── contracts                 # smart contracts
+    ├── contracts                 # smart contracts, FOLLOWING SMART CONTRACTS ARE QUERYRESPONSE CONTRACTS USING WORMHOLE FOR SUBMITTNG QUERY RESPONSE ON CHAIN
+    |    └── ERX20s
+    |    └── ERC721s
+    |    └── Staking
+    |       └── facets
+    |           └── ChainFacet.sol
+    |           └── NftMinter.sol
+    |           └── StateUpdate.sol
     ├── scripts                   # scripts for utility functions
     ├── tasks                     # tasks for invoking functions
     ├── wormholeCcq               # service responsible for cross-chain query 
+    |   └── handlers              # contains all handlers performing **CCQ** for specfic purpose
+    |   └── handler.js            
+    |   └── index.js              # file configuring express app
+    |   └── server.js             # entrypoint for running server
     ├── LICENSE
     ├── hardhat.config.ts  
     ├── package.json
     ├── README.md
     └── tsconfig.json
+
 
 ## Usage Explanation
 1. **Global liquidity reference of $BUDS across 5 networks**
