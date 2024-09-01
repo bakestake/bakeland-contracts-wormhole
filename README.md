@@ -84,6 +84,10 @@ Secondly, blockchain interoperability has been limited to infra and DeFi. But it
     ├── scripts                   # scripts for utility functions
     ├── tasks                     # tasks for invoking functions
     ├── wormholeCcq               # service responsible for cross-chain query 
+        └── handlers              # contains all handlers performing **CCQ** for specfic purpose
+        └── handler.js            
+        └── index.js              # file configuring express app
+        └── server.js             # entrypoint for running server
     ├── LICENSE
     ├── hardhat.config.ts  
     ├── package.json
@@ -113,3 +117,7 @@ Secondly, blockchain interoperability has been limited to infra and DeFi. But it
      
   
 ## Links to services and deployed contract addresses
+  service for getting data and sigs form CCQ -  https://24rya9omd6.execute-api.eu-west-3.amazonaws.com/dev/
+  ![image](https://github.com/user-attachments/assets/25832432-4d1e-4cb1-97e9-3c6bab625484)
+
+  Proxy(diamond) contract on all chains - 0xB2A338Fb022365Aa40a2c7ADA3Bbf1Ae001D6dbe 
